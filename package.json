@@ -1,0 +1,24 @@
+{
+  "name": "number-guessing-game",
+  "version": "1.0.0",
+  "description": "a number guessing game",
+  "homepage": "https://github.com/olaleksi/number-guessing-game#readme",
+  "bugs": {
+    "url": "https://github.com/olaleksi/number-guessing-game/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olaleksi/number-guessing-game.git"
+  },
+  "license": "ISC",
+  "author": "olalekan",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
