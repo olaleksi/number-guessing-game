@@ -13,135 +13,103 @@ function startGame() {
 }
 
 function guessNumber() {
+    // Generate a random number between 1 and 100
   const randomNum = Math.floor(Math.random() * 100) + 1;
 
-  // difficulty levels
-  const easy = 10;
-  const medium = 5;
-  const hard = 3;
 
-  
+    // Map of difficulty levels to number of chances
+    const commandMap = {
+        "easy": 10, '1': 10,
+        "medium": 5, '2': 5,
+        "hard": 3, '3': 3
+    };
 
-  const command = prompt(
-    "Enter the difficulty level (easy, medium, hard): ",
-  ).toLowerCase();
 
-  if (command === "easy") {
-    console.log(`Great! You have selected the ${command} difficulty level.
-            Let's start the game!`);
+    // Prompt user for difficulty level
+    const difficulty = prompt(
+      "Enter the difficulty level (easy/medium/hard or 1/2/3): ",
+    ).toLowerCase();
+    
+
+    // Get the number of chances based on the selected difficulty
+        const promptGuess = commandMap[difficulty];
+
+    // Validate difficulty input
+        if (!promptGuess) {
+          console.log(
+            "Invalid difficulty level. Please choose easy, medium, or hard.",
+          );
+          return;
+        }
+    
+    // Start the game
+    console.log(`Great! You have selected the ${difficulty} difficulty level.
+        Let's start the game!`);
+
+      
     const startTime = Date.now(); // Start timer
     let attempts = 0;
-    for (let i = 0; i < easy; i++) {
-      const guess = prompt("Enter your guess: ");
-      let numGuess = parseInt(guess);
+    
+        // Game loop for user guesses
+    for (let i = 0; i < promptGuess; i++) {
+          
+        const guess = prompt("Enter your guess: ");
 
-      // Validate input
-      if (isNaN(numGuess) || numGuess < 1 || numGuess > 100) {
-        console.log("Please enter a valid number between 1 and 100.\n");
-        i--; // Don't count invalid attempts
-        continue;
-      }
-      attempts++;
+        //  Convert the input to a number 
+        let numGuess = parseInt(guess);
 
+        // Validate input
+        if (isNaN(numGuess) || numGuess < 1 || numGuess > 100) {
+          console.log("Please enter a valid number between 1 and 100.\n");
+          i--; // Don't count invalid attempts
+          continue;
+        }
+
+        // Increment attempts after a valid guess
+        attempts++;
+
+          
+          
+          
+        // Check if the guess is correct, too high, or too low
         if (numGuess === randomNum) {
           const endTime = Date.now();
           const timeTaken = ((endTime - startTime) / 1000).toFixed(2); // Convert to seconds
           console.log(
             `Congratulations! You guessed the correct number in ${attempts} ${attempts > 1 ? "attempts" : "attempt"} and ${timeTaken} seconds.`,
-          );
-          return;
+          );return;
+            // playAgain();
         } else if (numGuess !== randomNum && numGuess > randomNum) {
-        console.log(`Incorrect! The number is less than ${numGuess}.
-                    `);
-      } else if (numGuess !== randomNum && numGuess < randomNum) {
-        console.log(`Incorrect! The number is greater than ${numGuess}.
-                    `);
+          console.log(`Incorrect! The number is less than ${numGuess}.
+                        `);
+        } else if (numGuess !== randomNum && numGuess < randomNum) {
+          console.log(`Incorrect! The number is greater than ${numGuess}.
+                        `);
+          }
       }
-    }
-    if (attempts === easy) {
-      console.log(
-        `Game over! You've used all your attempts. The correct number was ${randomNum}.`,
-      );
-    }
-  } else if (command === "medium") {
-    console.log(`Great! You have selected the ${command} difficulty level.
-            Let's start the game!`);
-    let attempts = 0;
-    for (let i = 0; i < medium; i++) {
-        const guess = prompt("Enter your guess: ");
-        let numGuess = parseInt(guess);
-
-      // Validate input
-      if (isNaN(numGuess) || numGuess < 1 || numGuess > 100) {
-        console.log("Please enter a valid number between 1 and 100.\n");
-        i--; // Don't count invalid attempts
-        continue;
-        }
         
-      attempts++;
-      
-      if (numGuess === randomNum) {
-        const endTime = Date.now();
-        const timeTaken = ((endTime - startTime) / 1000).toFixed(2); // Convert to seconds
-        console.log(
-          `Congratulations! You guessed the correct number in ${attempts} ${attempts > 1 ? "attempts" : "attempt"} and ${timeTaken} seconds.`,
-        );
-        break;
-      } else if (numGuess !== randomNum && numGuess > randomNum) {
-        console.log(`Incorrect! The number is less than ${numGuess}.
-                        `);
-      } else if (numGuess !== randomNum && numGuess < randomNum) {
-        console.log(`Incorrect! The number is greater than ${numGuess}.
-                        `);
-      }
-    }
-    if (attempts === medium) {
-      console.log(
-        `Game over! You've used all your attempts. The correct number was ${randomNum}.`,
-      );
-    }
-  } else if (command === "hard") {
-    console.log(`Great! You have selected the ${command} difficulty level.
-            Let's start the game!`);
-    let attempts = 0;
-    for (let i = 0; i < hard; i++) {
-        const guess = prompt("Enter your guess: ");
-        let numGuess = parseInt(guess);
+ console.log(
+    `Game over! You've used all your attempts. The correct number was ${randomNum}.`,
+  );
+    playAgain();
+}
 
-      // Validate input
-      if (isNaN(numGuess) || numGuess < 1 || numGuess > 100) {
-        console.log("Please enter a valid number between 1 and 100.\n");
-        i--; // Don't count invalid attempts
-        continue;
-        }
-        
-      attempts++;
-      if (numGuess === randomNum) {
-        const endTime = Date.now();
-        const timeTaken = ((endTime - startTime) / 1000).toFixed(2); // Convert to seconds
-        console.log(
-          `Congratulations! You guessed the correct number in ${attempts} ${attempts > 1 ? "attempts" : "attempt"} and ${timeTaken} seconds.`,
-        );
-        break;
-      } else if (numGuess !== randomNum && numGuess > randomNum) {
-        console.log(`Incorrect! The number is less than ${numGuess}.
-                        `);
-      } else if (numGuess !== randomNum && numGuess < randomNum) {
-        console.log(`Incorrect! The number is greater than ${numGuess}.
-                        `);
-      }
-    }
-    if (attempts === hard) {
-      console.log(
-        `Game over! You've used all your attempts. The correct number was ${randomNum}.`,
-      );
-    }
+
+
+
+function playAgain() {
+  console.log("\n************************");
+  const again = prompt("Do you want to play again? (yes/no): ").toLowerCase();
+
+  if (again === "yes" || again === "y") {
+    console.log("\n"); // Add some spacing
+    startGame();
   } else {
-    console.log(
-      "Invalid difficulty level. Please choose easy, medium, or hard.",
-    );
+    console.log("\nThanks for playing! Goodbye! 👋");
   }
 }
+
+// Start the game
 startGame();
 
-// node index.js
+// run program with "npm start"
